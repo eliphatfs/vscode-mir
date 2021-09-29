@@ -3,27 +3,242 @@
 	"name": "MIR Text",
 	"patterns": [
 		{
+			"include": "#constructs"
+		},
+		{
+			"include": "#declaratives"
+		},
+		{
 			"include": "#keywords"
 		},
 		{
-			"include": "#strings"
+			"include": "#constants"
+		},
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#punctuations"
+		},
+		{
+			"include": "#tags"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.mirt",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.mirt",
-			"begin": "\"",
-			"end": "\"",
+		"comments": {
 			"patterns": [
 				{
-					"name": "constant.character.escape.mirt",
-					"match": "\\\\."
+					"name": "comment.line.mirt",
+					"match": "#.*$"
+				}
+			]
+		},
+		"punctuations": {
+			"patterns": [
+				{
+					"name": "punctuation.separator.delimiter.mirt",
+					"match": "[;]"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "support.type.mirt",
+					"match": "\\b(i8|u8|i16|u16|i32|u32|i64|u64|f|d|ld|p|blk)\\b"
+				},
+				{
+					"match": "\\b(jmp|bt|bts|bf|bfs|(?:(?:beq|bne|blt|ble|bgt|bge|ublt|uble|ubgt|ubge)s?)|(?:(?:f|d|ld)(?:beq|bne|blt|ble|bgt|bge)))\\s+([^,\\s]+)",
+					"captures": {
+						"1": {
+							"name": "keyword.br.label.mirt"
+						},
+						"2": {
+							"name": "meta.tag"
+						}
+					}
+				},
+				{
+					"name": "keyword.br.ret.mirt",
+					"match": "\\b(ret|rets)\\b"
+				},
+				{
+					"name": "stmt.br.call.mirt",
+					"match": "\\b(call|inline)\\s+([^,\\s]+),\\s*([^,\\s]+)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.br.call.mirt"
+						},
+						"2": {
+							"name": "entity.name.type"
+						},
+						"3": {
+							"name": "entity.name.function"
+						}
+					}
+				},
+				{
+					"name": "keyword.switch.mirt",
+					"match": "\\b(switch)\\b"
+				},
+				{
+					"name": "keyword.mov.mirt",
+					"match": "\\b(mov|fmov|dmov|ldmov)\\b"
+				},
+				{
+					"name": "keyword.ext.mirt",
+					"match": "\\b(ext|uext)(8|16|32)\\b"
+				},
+				{
+					"name": "keyword.iarith.mirt",
+					"match": "\\b(add|sub|mul|div|umul|udiv|mod|umod|neg)(s?)\\b"
+				},
+				{
+					"name": "keyword.ibit.mirt",
+					"match": "\\b(and|or|xor|lsh|rsh|ursh)(s?)\\b"
+				},
+				{
+					"name": "keyword.icmp.mirt",
+					"match": "\\b(eq|ne|lt|le|ult|ule|gt|ge|ugt|uge)(s?)\\b"
+				},
+				{
+					"name": "keyword.cast.mirt",
+					"match": "\\b((ui|i|f|d|ld)2(i|f|d|ld))\\b"
+				},
+				{
+					"name": "keyword.farith.mirt",
+					"match": "\\b(f|d|ld)(add|sub|mul|div|mod|neg)\\b"
+				},
+				{
+					"name": "keyword.fcmp.mirt",
+					"match": "\\b(f|d|ld)(eq|ne|lt|le|gt|ge)\\b"
+				},
+				{
+					"name": "keyword.misc.mirt",
+					"match": "\\b(alloca|bstart|bend|va_arg|va_block_arg|va_start|va_end)\\b"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.mirt",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.mirt",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "constant.numeric.a.mirt",
+					"match": "\\b(?:0[dt])?(?:[0-9][0-9_]*)\\.(?:(?:[0-9][0-9_]*)?(?:e[+-]?(?:[0-9][0-9_]*))?[flFL]?\\b)?"
+				},
+				{
+					"name": "constant.numeric.b.mirt",
+					"match": "\\b(?:[0-9][0-9_]*)(?:e[+-]?(?:[0-9][0-9_]*))[flFL]?\\b"
+				},
+				{
+					"name": "constant.numeric.hex.mirt",
+					"match": "\\b(?:(?:0[x](?:[[:xdigit:]][[:xdigit:]_]*))|(?:(?:[[:xdigit:]][[:xdigit:]_]*)[hH]))\\b"
+				},
+				{
+					"name": "constant.numeric.c.mirt",
+					"match": "\\b([0-9]+)[flFL]?\\b"
+				}
+			]
+		},
+		"declaratives": {
+			"patterns": [
+				{
+					"match": "\\b(import|export)\\s+(.+)$",
+					"captures": {
+						"1": {
+							"name": "keyword.decl.mirt"
+						},
+						"2": {
+							"name": "entity.name.function"
+						}
+					}
+				},
+				{
+					"match": "\\b([^\\s]+)\\:\\s*(proto)\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.type"
+						},
+						"2": {
+							"name": "keyword.decl.mirt"
+						}
+					}
+				},
+				{
+					"match": "\\b(local|string)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.decl.mirt"
+						}
+					}
+				}
+			]
+		},
+		"constructs": {
+			"patterns": [
+				{
+					"name": "entity.module",
+					"match": "\\b([^\\s]+)\\:\\s*(module)\\b",
+					"captures": {
+						"1": {
+							"name": "meta.property-name"
+						},
+						"2": {
+							"name": "keyword.module"
+						}
+					}
+				},
+				{
+					"name": "entity.module",
+					"match": "\\b(endmodule)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.endmodule"
+						}
+					}
+				},
+				{
+					"name": "entity.func",
+					"match": "\\b([^\\s]+)\\:\\s*(func)\\b",
+					"captures": {
+						"1": {
+							"name": "entity.name.function"
+						},
+						"2": {
+							"name": "keyword.func"
+						}
+					}
+				},
+				{
+					"name": "entity.func",
+					"match": "\\b(endfunc)\\b",
+					"captures": {
+						"1": {
+							"name": "keyword.endfunc"
+						}
+					}
+				}
+			]
+		},
+		"tags": {
+			"patterns": [
+				{
+					"match": "^\\s*([^\\s]+)\\:(?!\\s*string)",
+					"captures": {
+						"1": {
+							"name": "meta.tag"
+						}
+					}
 				}
 			]
 		}
