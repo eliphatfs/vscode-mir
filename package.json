@@ -1,0 +1,25 @@
+{
+    "name": "vscode-mir",
+    "displayName": "VSCode MIR",
+    "description": "Support for MIR textual format.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "mirt",
+            "aliases": ["MIR Text", "mirt"],
+            "extensions": [".mir",".mirt"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "mirt",
+            "scopeName": "source.mirt",
+            "path": "./syntaxes/mirt.tmLanguage.json"
+        }]
+    }
+}
