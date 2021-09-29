@@ -18,3 +18,7 @@ Nothing configurable yet.
 ## Release Notes
 
 See [change logs](./CHANGELOG.md).
+
+## Contributing
+
+Currently the project is still in early alpha stage of developing. Contributions are welcome!
