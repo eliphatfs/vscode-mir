@@ -17,4 +17,4 @@ Nothing configurable yet.
 
 ## Release Notes
 
-No release yet.
+See [change logs](./CHANGELOG.md).
