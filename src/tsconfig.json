@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "removeComments": false,
+        "noUnusedLocals": true,
+        "noImplicitThis": true,
+        "inlineSourceMap": false,
+        "sourceMap": true,
+        "outDir": "../out",
+        "strictNullChecks": true,
+        "noUnusedParameters": false
+    }
+}
