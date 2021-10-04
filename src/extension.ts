@@ -26,9 +26,13 @@ class DebugAdapterExecutableFactory implements vscode.DebugAdapterDescriptorFact
 
 		// use the executable specified in the package.json if it exists or determine it based on some other information (e.g. the session)
         if (!executable) {
+			let fp = vscode.window.activeTextEditor?.document.uri.fsPath;
+			if (!fp) throw new Error("No active file!");
 			console.log(path.join(this.context.extensionPath, "./bin/mir-intp-dap.exe"));
 			executable = new vscode.DebugAdapterExecutable(
-                path.join(this.context.extensionPath, "./bin/mir-intp-dap.exe"), [], {}
+                path.join(this.context.extensionPath, "./bin/mir-intp-dap.exe"),
+				[fp],
+				{}
             );
 		}
 
