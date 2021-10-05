@@ -37,6 +37,11 @@
                 "path": "./syntaxes/mirt.tmLanguage.json"
             }
         ],
+        "breakpoints": [
+            {
+                "language": "mirt"
+            }
+        ],
         "debuggers": [
             {
                 "type": "mir-intp-dap",
