@@ -23,7 +23,7 @@ then hit F5 in a host VS Code process to start a development VS Code process. Be
 ```sh
 gcc -g -Og mir.c ./dap/cJSON.c -o mir-intp-dap.exe -DMIR_DAP -DMIR_DIRECT_DISPATCH -I. -Lpthread
 ```
-then paste the `mir-intp-dap.exe` into `bin` folder of the plugin directory (if the folder does not exist just create a new one).
+then paste the `mir-intp-dap.exe` into `bin` folder of the plugin directory (if the folder does not exist just create a new one). (For windows you have to use MinGW or cygwin. If you don't have one then I suggest installing Strawberry Perl which includes a stable and minimal MinGW distribution.)
 
 Example video:
 <img src="https://user-images.githubusercontent.com/23738781/136159110-7684463b-2d22-4b13-925b-4dbbd225e427.gif" width="60%" />
